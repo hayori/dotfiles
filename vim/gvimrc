@@ -1,0 +1,44 @@
+set columns=120
+set lines=47
+set cmdheight=2
+" colorscheme DarkZ
+colorscheme Dark2
+set guioptions-=T
+
+" フォントをRictyに設定
+set guifont=Ricty:h12:cSHIFTJIS
+
+if g:colors_name ==? 'wombat'
+  hi Visual gui=none guifg=khaki guibg=olivedrab
+  hi Cursor guifg=NONE guibg=#779740 gui=none
+
+  "入力モードによってステータスラインの色を変更する
+  augroup InsertHook
+    autocmd!
+    autocmd InsertEnter * highlight StatusLine guifg=#2E4340 guibg=#ccdc90
+    autocmd InsertLeave * highlight StatusLine guifg=#f6f3e8 guibg=#444444 gui=italic
+  augroup END
+endif
+
+if g:colors_name ==? 'LightGreen'
+  "入力モードによってステータスラインの色を変更する
+  augroup InsertHook
+    autocmd!
+    autocmd InsertEnter * highlight StatusLine guifg=#ccdc90 guibg=#2E4340
+    autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ccdc90
+  augroup END
+endif
+
+if has('multi_byte_ime') || has('xim')
+  " 日本語入力ON時のカーソルの色を設定
+  highlight CursorIM guibg=LightYellow guifg=NONE
+endif
+
+" vim にフォーカスがない場合、ウインドウを透明にする
+"augroup hack234
+"  autocmd!
+"  if has('mac')
+"    autocmd FocusGained * set transparency=10
+"    autocmd FocusLost * set transparency=50
+"  endif
+"augroup END
