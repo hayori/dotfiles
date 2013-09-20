@@ -65,7 +65,8 @@ set autoread    "他で書き換えられたら自動で読み直す
 set noswapfile  "スワップファイル作らない
 set hidden      "編集中でも他のファイルを開けるようにする
 
-set t_Co=256  " 256色カラーに対応
+set t_Co=256       "256色カラーに対応
+colorscheme Dark2  "カラー設定(コンソールvim用)
 
 "表示行単位で行移動する
 nmap j gj
@@ -162,19 +163,6 @@ endfunction
 
 nnoremap <silent><F9>   :<C-u>call ColorRoller.roll()<CR>
 nnoremap <silent><S-F9> :<C-u>call ColorRoller.unroll()<CR>
-
-" #############################################
-"   RSense
-" #############################################
-" setlocal completefunc=RSenseComplete
-" if !exists('g:neocomplcache_omni_patterns')
-" "  let g:neocomplcache_omni_patterns = {}
-" endif
-" let g:rsenseUseOmniFunc = 1
-" if filereadable(expand('~/.vim/rsense/bin/rsense'))
-"   let g:rsenseHome = expand('~/.vim/rsense')
-"   let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-" endif
 
 
 " #############################################
