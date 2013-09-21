@@ -142,6 +142,12 @@ cons25)
 esac
 
 # ------------------------------
+# Keybind Settings
+# ------------------------------
+bindkey -v
+bindkey '^R' history-incremental-search-backward
+
+# ------------------------------
 # Other Settings
 # ------------------------------
 
