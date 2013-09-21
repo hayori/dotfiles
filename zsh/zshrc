@@ -1,0 +1,177 @@
+# users generic .zshrc file for zsh(1)
+
+# ------------------------------
+# General Settings
+# ------------------------------
+export LANG=ja_JP.UTF-8  # 文字コードをUTF-8に設定
+export KCODE=u           # KCODEにUTF-8を設定
+export AUTOFEATURE=true  # autotestでfeatureを動かす
+export EDITOR=vim        # エディタをvimに設定
+export PAGER=less        # ベージャをlessに設定
+
+case "${OSTYPE}" in
+darwin*)
+  # MacではMacVimを起動する
+  export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+  alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+  alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+  ;;
+esac
+
+#bindkey -e               # キーバインドをemacsモードに設定
+bindkey -v               # キーバインドをviモードに設定
+
+setopt no_beep           # ビープ音を鳴らさないようにする
+setopt auto_cd           # 指定したコマンド名がなく、ディレクトリ名と一致した場合 cd する
+setopt auto_pushd        # cd時にディレクトリスタックにpushdする
+setopt correct           # コマンドのスペルを訂正する
+setopt prompt_subst      # プロンプト定義内で変数置換やコマンド置換を扱う
+setopt notify            # バックグラウンドジョブの状態変化を即時報告する
+setopt equals            # =commandを`which command`と同じ処理にする
+#setopt chase_links x     # シンボリックリンクは実体を追うようになる
+#setopt NO_hup            # シェルが終了しても裏ジョブに HUP シグナルを送らないようにする
+#setopt ignore_eof        # Ctrl+D では終了しないようになる（exit, logout などを使う）
+#setopt print_exit_value  # 戻り値が 0 以外の場合終了コードを表示する
+#setopt rm_star_silent    # rm * などの際、本当に全てのファイルを消して良いかの確認しないようになる
+#setopt rm_star_wait      # rm_star_silent の逆で、10 秒間反応しなくなり、頭を冷ます時間が与えられる
+
+### Complement ###
+autoload -U compinit; compinit # 補完機能を有効にする
+setopt nolistbeep              # 補完候補表示時などにビープ音を鳴らさない
+setopt print_eight_bit         # 日本語補完時の文字化け防止
+setopt auto_list               # 補完候補が複数ある時に、一覧表示する
+setopt magic_equal_subst       # =以降も補完する(--prefix=/usrなど)
+setopt auto_param_slash        # ディレクトリ名の補完で末尾の / を自動的に付加
+setopt auto_param_keys         # カッコの対応などを自動的に補完する
+setopt auto_menu               # 補完キー（Tab, Ctrl+I) を連打するだけで順に補完候補を自動で補完する
+setopt list_packed             # 補完候補をできるだけ詰めて表示する
+setopt list_types              # 補完候補にファイルの種類も表示する
+setopt always_to_end           # 補完したら文字列末尾へ移動
+setopt complete_aliases        # aliasも補完対象にする
+bindkey "^[[Z" reverse-menu-complete  # Shift-Tabで補完候補を逆順する("\e[Z"でも動作する)
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 補完時に大文字小文字を区別しない
+
+### Glob ###
+setopt extended_glob # グロブ機能を拡張する
+unsetopt caseglob    # ファイルグロブで大文字小文字を区別しない
+
+### History ###
+HISTFILE=~/.zsh_history   # ヒストリを保存するファイル
+HISTSIZE=10000            # メモリに保存されるヒストリの件数
+SAVEHIST=10000            # 保存されるヒストリの件数
+setopt bang_hist          # !を使ったヒストリ展開を行う(d)
+setopt extended_history   # ヒストリに実行時間も保存する
+setopt hist_ignore_dups   # 直前と同じコマンドはヒストリに追加しない
+setopt share_history      # 他のシェルのヒストリをリアルタイムで共有する
+setopt hist_reduce_blanks # 余分なスペースを削除してヒストリに保存する
+setopt hist_no_store      # history (fc -l) コマンドをヒストリリストから取り除く。
+setopt hist_verify        # ヒストリを呼び出してから実行する間に一旦編集できる状態になる
+
+# マッチしたコマンドのヒストリを表示できるようにする
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^P" history-beginning-search-backward-end
+bindkey "^N" history-beginning-search-forward-end
+
+# すべてのヒストリを表示する
+function history-all { history -E 1 }
+
+# ------------------------------
+# Look And Feel Settings
+# ------------------------------
+
+### Prompt ###
+autoload colors; colors
+
+# 一般ユーザ時
+tmp_prompt="%{${fg[cyan]}%}%# %{${reset_color}%}"
+tmp_prompt2="%{${fg[cyan]}%}%_> %{${reset_color}%}"
+tmp_rprompt="%{${fg[green]}%}[%~]%{${reset_color}%}"
+tmp_sprompt="%{${fg[yellow]}%}%r is correct? [Yes, No, Abort, Edit]:%{${reset_color}%}"
+
+# rootユーザ時(太字にし、アンダーバーをつける)
+if [ ${UID} -eq 0 ]; then
+  tmp_prompt="%B%U${tmp_prompt}%u%b"
+  tmp_prompt2="%B%U${tmp_prompt2}%u%b"
+  tmp_rprompt="%B%U${tmp_rprompt}%u%b"
+  tmp_sprompt="%B%U${tmp_sprompt}%u%b"
+fi
+
+PROMPT=$tmp_prompt    # 通常のプロンプト
+PROMPT2=$tmp_prompt2  # セカンダリのプロンプト(コマンドが2行以上の時に表示される)
+RPROMPT=$tmp_rprompt  # 右側のプロンプト
+SPROMPT=$tmp_sprompt  # スペル訂正用プロンプト
+# SSHログイン時のプロンプト
+[ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
+  PROMPT="%{${fg[white]}%}${HOST%%.*} ${PROMPT}"
+;
+
+# set terminal title including current directory
+case "${TERM}" in
+kterm*|xterm*)
+  precmd() {
+    #echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
+    echo -ne ""
+  }
+  export LSCOLORS=exfxcxdxbxegedabagacad
+  export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+  zstyle ':completion:*' list-colors \
+    'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
+  ;;
+esac
+
+## terminal configuration
+unset LSCOLORS
+case "${TERM}" in
+xterm)
+  export TERM=xterm-color
+  ;;
+kterm)
+  export TERM=kterm-color
+  # set BackSpace control character
+  stty erase
+  ;;
+cons25)
+  unset LANG
+  export LSCOLORS=ExFxCxdxBxegedabagacad
+  export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+  zstyle ':completion:*' list-colors \
+    'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
+  ;;
+esac
+
+# ------------------------------
+# Other Settings
+# ------------------------------
+
+# cdコマンド実行後、lsを実行する
+#function cd() {
+#  builtin cd $@ && ls;
+#}
+
+### PATH ###
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+export MANPATH=/opt/local/man:$MANPATH
+
+### Aliases ###
+alias c="clear"
+alias r=rails
+alias rm="rm -i"
+alias mv="mv -i"
+alias gits="git status"
+alias pd=popd
+alias screen="screen -D -RR"     # auto detach
+
+# ls
+case "${OSTYPE}" in
+freebsd*|darwin*)
+  alias ls="ls -G -w"
+  ;;
+linux*)
+  alias ls="ls -F --color"
+  ;;
+esac
+
+# Ruby 1.9.2 からカレントロードしてくれないので
+# RUBYLIB=./; export RUBYLIB
