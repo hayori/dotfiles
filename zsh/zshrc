@@ -179,5 +179,12 @@ linux*)
   ;;
 esac
 
-# Ruby 1.9.2 からカレントロードしてくれないので
-# RUBYLIB=./; export RUBYLIB
+### rbenv ###
+case ${OSTYPE} in
+  darwin*)
+    export RBENV_ROOT=~/.rbenv
+    export PATH="~/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
+    ;;
+esac
+
