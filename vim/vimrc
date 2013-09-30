@@ -1,107 +1,75 @@
-" #############################################
-"   neobundle.vim
-" #############################################
-"  http://vim-users.jp/2011/10/hack238/
-"  :NeoBundleInstall  インストール
-"  :NeoBundleInstall! アップデート
-"  :NeoBundleClean    アンインストール
-set nocompatible
-filetype off
-
-if has('vim_starting')
-  set runtimepath+=~/.vim/neobundle.vim
-
-  call neobundle#rc(expand('~/.bundle'))
-endif
-
-NeoBundle 'git://github.com/tomtom/tcomment_vim'
-NeoBundle 'git://github.com/vim-scripts/Align'
-NeoBundle 'git://github.com/vim-scripts/Color-Sampler-Pack'
-NeoBundle 'git://github.com/altercation/vim-colors-solarized'
-NeoBundle 'git://github.com/tpope/vim-rails'
-NeoBundle 'git://github.com/thinca/vim-ref'
-NeoBundle 'git://github.com/kana/vim-smartchr'
-NeoBundle 'git://github.com/thinca/vim-quickrun'
-NeoBundle 'git://github.com/sjl/gundo.vim'
-NeoBundle 'git://github.com/vim-ruby/vim-ruby.git'
-NeoBundle 'git://github.com/Shougo/neobundle.vim.git'
-NeoBundle 'git://github.com/Shougo/neocomplcache.git'
-NeoBundle 'git://github.com/Shougo/unite.vim.git'
-NeoBundle 'git://github.com/Shougo/vimfiler.git'
-NeoBundle 'git://github.com/Shougo/vimproc.git'
-NeoBundle 'git://github.com/Shougo/vimshell.git'
-NeoBundle 'git://github.com/ujihisa/unite-colorscheme'
-NeoBundle 'git://github.com/ujihisa/unite-font'
-NeoBundle 'git://github.com/mattn/zencoding-vim'
-NeoBundle 'git://github.com/tpope/vim-haml'
-NeoBundle 'git://github.com/scrooloose/nerdtree.git'
-NeoBundle 'git://github.com/tpope/vim-fugitive.git'
-NeoBundle 'git://github.com/kana/vim-fakeclip.git'
-NeoBundle 'Lokaltog/vim-powerline'
-
-filetype plugin on
-filetype indent on
-
-" #############################################
-"   基本設定
-" #############################################
-set shellslash    "winでパス区切りに / を使えるようにする
-"set lazyredraw   "マクロ実行中は描画しない
-"set autoread     "外部のエディタで編集中のファイルが変更されたら自動で読み直す
+"------------------------------
+" 基 本 設 定
+"------------------------------
+set nocompatible  "vi互換モードをOFF
+set mouse=        "マウスを無効
+set nohlsearch    "検索時はハイライトを無効
+set number        "行番号を表示
+set incsearch     "インクリメンタルサーチを有効
+set ignorecase    "大文字小文字を区別せず検索
+set laststatus=2  "ステータスラインを常に表示
+set shellslash    "Windowsでパス区切りにスラッシュを使用
+"set lazyredraw    "マクロ実行中は描画しない 
+set showmatch     "括弧の対応をハイライト
 set visualbell    "ビープを鳴らさない
-" set autochdir    "カレントディレクトリを自動で移動
-set wildmode=list:longest "コマンドライン補間をシェルっぽく
+set showcmd       "コマンドをステータスラインに表示する
+set wrap          "画面幅で折り返す
+set notitle       "ウィンドウタイトルを変更しない(Thanks for flying Vim防止)
+set nobackup      "バックアップファイルを作成しない
+"set noswapfile    "スワップファイルを作成しない
+set autoread      "他で書き換えれたら自動で再読込み
+set hidden        "編集中ファイルを保存せずに他のファイルを開ける
+set list          "行末を可視化
 
-set showmatch         "括弧の対応をハイライト
-set showcmd           "入力中のコマンドを表示
-set number            "行番号表示
-set wrap              "画面幅で折り返す
-set notitle           "タイトル書き換えない
-set scrolloff=5       "行送り
-set laststatus=2      "ステータスラインを表示
+set listchars=eol:$,tab:>.   "非表示文字を表示
+set undolevels=1000          "UNDOできる上限"
+set pastetoggle=<F12>        "ペーストモード切替(set pasteのままだとプラグイン等動作しない)"
+"set scrolloff=999           "常にカーソル行を真ん中にする
 
-set nobackup    "バックアップ取らない
-set autoread    "他で書き換えられたら自動で読み直す
-set noswapfile  "スワップファイル作らない
-set hidden      "編集中でも他のファイルを開けるようにする
+set wildmenu wildmode=list:longest  "コマンドラインモードでの補完表示形式
+set backspace=start,eol,indent      "バックスペースキーでの文字削除を許可
+"set whichwrap=b,s,[,],<,>,~        "カーソルキー移動をスクリーンエディタに合わせる
 
-set t_Co=256       "256色カラーに対応
-colorscheme Dark2  "カラー設定(コンソールvim用)
+"### 全角スペースを可視化###
+highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=white
+"match ZenkakuSpace /　/
 
-"表示行単位で行移動する
+"### ハイライト設定 ###
+syntax on                        "シンタックスハイライトを有効
+"set t_Co=256                     "256色ターミナルに対応
+"colorscheme Dark2                "カラースキーマでの設定
+highlight StatusLine ctermfg=black ctermbg=grey
+highlight CursorLine ctermfg=none ctermbg=darkgray cterm=none
+highlight MatchParen ctermfg=none ctermbg=darkgray
+highlight Comment ctermfg=darkgreen ctermbg=none
+highlight Directory ctermfg=darkgreen ctermbg=none
+
+"### ステータスライン表示設定 ###
+" set statusline=%F%r%h%=
+set statusline=%<%F¥\%r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%4v(ASCII=%03.3b,HEX=%02.2B)_\%l/%L(%P)%m
+
+"### 折返し行の移動を直感的にする ###
 nmap j gj
 nmap k gk
-vmap j gj
-vmap k gk
+nmap j gj
+nmap k gk
 
-"不可視文字を表示する
-" trailは行末スペース
-set list
-"set listchars=tab:>¥,trail:_
-"ステータスラインに文字コード、改行などを表示する
-" set statusline=%<%F¥\%r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%4v(ASCII=%03.3b,HEX=%02.2B)_\%l/%L(%P)%m
-"ステータスラインに文字コード、改行などを表示する(fugitive必須)
-set statusline=%<%F¥\%r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%{fugitive#statusline()}%=%4v(ASCII=%03.3b,HEX=%02.2B)_\%l/%L(%P)%m
-"全角スペースを可視化
-highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=white
-match ZenkakuSpace /　/
-" カーソル行をハイライト
-set cursorline
-" カレントウィンドウにのみ罫線を引く
-augroup cch
-  autocmd! cch
-  autocmd WinLeave * set nocursorline
-  autocmd WinEnter,BufRead * set cursorline
-augroup END
-:hi clear CursorLine
-:hi CursorLine gui=underline
-highlight CursorLine ctermbg=black guibg=black
+"### TABで15文字カーソル移動 ###
+nmap <silent> <Tab> 15<Right>
+vmap <silent> <Tab> <C-o>15<Right>
+nmap <silent> <S-Tab> 15<Left>
+vmap <silent> <S-Tab> <C-o>15<Left>
 
-" Escの2回押しでハイライト消去
+"### バッファ操作 ###
+map <silent> <C-n> :update<CR>:bn<CR>
+map <silent> <C-b> :update<CR>:bp<CR>
+map <F4> <ESC>:bnext \| bdelete #<CR>
+
+"### ESCの2回押しでハイライト削除 ###
 nmap <ESC><ESC> :nohlsearch<CR><ESC>
 
-"タブ関係
-" tabstopはTab文字を画面上で何文字分に展開するか
+"### TABインデント設定 ###
+" tabstopはTabを画面上で何文字分に展開するか
 " shiftwidthはcindentやautoindent時に挿入されるインデントの幅
 " softtabstopはTabキー押し下げ時の挿入される空白の量，0の場合はtabstopと同じ，BSにも影響する
 au BufNewFile,BufRead * set tabstop=2 shiftwidth=2 softtabstop=0
@@ -109,92 +77,193 @@ au BufNewFile,BufRead *.php set tabstop=4 shiftwidth=4 softtabstop=0
 set expandtab               "タブを空白文字に展開
 set autoindent smartindent  "自動インデント，スマートインデント
 
-" 保存時に行末の空白を除去する
-autocmd BufWritePre * :%s/\s\+$//ge
-" 保存時にtabをスペースに変換する
-autocmd BufWritePre * :%s/\t/  /ge
+"### 括弧の自動補完 ###
+inoremap { {}<LEFT>
+inoremap [ []<LEFT>
+inoremap ( ()<LEFT>
+inoremap < <><LEFT>
+inoremap " ""<LEFT>
+inoremap ' ''<LEFT>
+vnoremap { "zdi{<C-R>z}<ESC>
+vnoremap [ "zdi[<C-R>z]<ESC>
+vnoremap ( "zdi(<C-R>z)<ESC>
+""vnoremap < "zdi(<C-R>z><ESC>
+vnoremap " "zdi"<C-R>z"<ESC>
+vnoremap ' "zdi'<C-R>z'<ESC>
 
-" Ctrl-iでヘルプ
-nnoremap <C-i>  :<C-u>help<Space>
-" カーソル下のキーワードをヘルプでひく
-nnoremap <C-i><C-i> :<C-u>help<Space><C-r><C-w><Enter>
+"### 複数回のインデントを行えるようにする ###
+vnoremap <silent> > >gv
+vnoremap <silent> < <gv
 
-" インデントを連続して変更
-vnoremap < <gv
-vnoremap > >gv
+"------------------------------
+" Neobundle
+"------------------------------
+" :NeoBundleInstall  インストール
+" :NeoBundleInstall! アップデート
+" :NeoBundleClean    アンインストール
 
-",e でそのコマンドを実行
-"  quickrun.vim入れたのでコメントアウト
-" nmap ,e :execute '!' &ft ' %'<CR>
+"vim起動時のみruntimepathにneobundle.vimを追加
+if has('vim_starting')
+  set runtimepath+=~/.vim/neobundle.vim
+endif
 
-" #############################################
-" カラースキーマの変更
-" #############################################
-let ColorRoller = {}
-let ColorRoller.colors = [
-      \ 'Dark2',
-      \ 'DarkZ',
-      \ 'solarized',
-      \ 'adaryn',
-      \ 'darkblue',
-      \ 'pyte',
-      \ 'candycode',
-      \ ]
+"neobundle.vimの初期化
+call neobundle#rc(expand('~/.bundle'))
 
-function! ColorRoller.change()
-  let color = get(self.colors, 0)
-  " tabpagecolorscheme を使用している場合は↓の "colorscheme" を "Tcolorscheme" に変える。
-  silent exe "colorscheme " . color
-  redraw
-  echo self.colors
+"neobundle.vimを更新する
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+"####### ファイルアクセス補助 #######
+NeoBundle 'kien/ctrlp.vim'
+
+
+"####### 入力補完 #######
+NeoBundle 'Shougo/neocomplete'
+
+"AutoComplPopを無効化する
+let g:acp_enableAtStartup = 0
+
+"neocompleteを起動時に有効にする
+let g:neocomplete#enable_at_startup = 1
+
+"大文字が入力されるまで、大文字小文字を区別しない
+let g:neocomplete#enable_smart_case = 1
+
+"補完開始する文字数
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+
+"自動補完を行わないバッファ名 
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions',
+    \ 'ruby' : $HOME.'/.vim/dict/ruby.dict'
+    \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+"rails-vimとneocompleteの競合でエラーが起るため対策
+let g:neocomplete#force_overwrite_completefunc = 1
+
+" 補完候補の色づけ for vim7
+hi Pmenu ctermbg=255 ctermfg=0 guifg=#000000 guibg=#999999
+hi PmenuSel ctermbg=blue ctermfg=black
+hi PmenuSbar ctermbg=0 ctermfg=9
+hi PmenuSbar ctermbg=255 ctermfg=0 guifg=#000000 guibg=#FFFFFF
+
+
+"####### コメントアウト #######
+NeoBundle 'tomtom/tcomment_vim'
+" tcommentで使用する形式を追加
+if !exists('g:tcomment_types')
+  let g:tcomment_types = {}
+endif
+let g:tcomment_types = {
+      \'php_surround' : "<?php %s ?>",
+      \'eruby_surround' : "<%% %s %%>",
+      \'eruby_surround_minus' : "<%% %s -%%>",
+      \'eruby_surround_equality' : "<%%= %s %%>",
+      \}
+" マッピングを追加
+function! SetErubyMapping2()
+  nmap <buffer> <C-_>c :TCommentAs eruby_surround<CR>
+  nmap <buffer> <C-_>- :TCommentAs eruby_surround_minus<CR>
+  nmap <buffer> <C-_>= :TCommentAs eruby_surround_equality<CR>
+
+  vmap <buffer> <C-_>c :TCommentAs eruby_surround<CR>
+  vmap <buffer> <C-_>- :TCommentAs eruby_surround_minus<CR>
+  vmap <buffer> <C-_>= :TCommentAs eruby_surround_equality<CR>
 endfunction
+" erubyのときだけ設定を追加
+au FileType eruby call SetErubyMapping2()
+" phpのときだけ設定を追加
+au FileType php nmap <buffer><C-_>c :TCommentAs php_surround<CR>
+au FileType php vmap <buffer><C-_>c :TCommentAs php_surround<CR>
 
-function! ColorRoller.roll()
-  let item = remove(self.colors, 0)
-  call insert(self.colors, item, len(self.colors))
-  call self.change()
+
+"####### Snippet #######
+NeoBundle 'Shougo/neosnippet.vim'
+" <TAB>: completion.
+inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
+
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> pumvisible() ? "\<C-n>" : neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+
+" スニペットファイルの保存ディレクトリのパスを登録
+let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets'
+
+
+"####### Ruby #######
+NeoBundle 'vim-ruby/vim-ruby'
+
+
+"####### Rails #######
+NeoBundle 'tpope/vim-rails'
+let g:rails_default_file='config/database.yml'
+let g:rails_level = 4
+let g:rails_mappings=1
+let g:rails_modelines=0
+" let g:rails_some_option = 1
+" let g:rails_statusline = 1
+" let g:rails_subversion=0
+" let g:rails_syntax = 1
+" let g:rails_url='http://localhost:3000'
+" let g:rails_ctags_arguments='--languages=-javascript'
+" let g:rails_ctags_arguments = ''
+function! SetUpRailsSetting()
+  nnoremap <buffer><Space>r :R<CR>
+  nnoremap <buffer><Space>a :A<CR>
+  nnoremap <buffer><Space>m :Rmodel<Space>
+  nnoremap <buffer><Space>c :Rcontroller<Space>
+  nnoremap <buffer><Space>v :Rview<Space>
+  nnoremap <buffer><Space>p :Rpreview<CR>
 endfunction
+aug MyAutoCmd
+  au User Rails call SetUpRailsSetting()
+aug END
+aug RailsDictSetting
+  au!
+aug END
 
-function! ColorRoller.unroll()
-  let item = remove(self.colors, -1)
-  call insert(self.colors, item, 0)
-  call self.change()
-endfunction
+NeoBundle 'scrooloose/nerdtree'
+nnoremap <silent> ,t :<C-u>NERDTreeToggle<CR>
 
-nnoremap <silent><F9>   :<C-u>call ColorRoller.roll()<CR>
-nnoremap <silent><S-F9> :<C-u>call ColorRoller.unroll()<CR>
+NeoBundle 'vim-scripts/dbext.vim', {
+  \ 'lazy': 1,
+  \ 'autoload': {
+  \   'commands': 'Select',
+\ }}
 
 
-" #############################################
-"   Plugins
-" #############################################
+"####### haml #######
+NeoBundle 'tpope/vim-haml'
 
-""" vimfiler
-" デフォルトのファイラーに設定
-let g:vimfiler_as_default_explorer = 1
 
-""" unite.vim
-" 入力モードで開始する
-let g:unite_enable_start_insert = 1
-" C-w で一つ上のパスへ移動
+"####### unite #######
+NeoBundle 'Shougo/unite.vim'
+" let g:unite_enable_start_insert = 1  "入力モードで開始する
 imap <buffer> <C-w> <plug>(unite_delete_backward_path)
-"history/yankの有効化
-let g:unite_source_history_yank_enable = 1
-nnoremap <silent> ,uy :<C-u>Unite history/yank<CR>
-" バッファ一覧
-nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
-" ファイル一覧
 nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-" レジスタ一覧
-nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
-" 最近使用したファイル一覧
+nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
 nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
-" 常用セット
 nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
-" 全部乗せ
-nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
-" カラースキーマ変更
-nnoremap <silent> ,uc :<C-u>Unite colorscheme -auto-preview<CR>
 " ウィンドウを分割して開く
 au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
 au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
@@ -205,69 +274,218 @@ au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vspli
 au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
 
-""" neocomplcache
-" 有効にする
-let g:neocomplcache_enable_at_startup = 1
-" 大文字入力まで、大文字小文字を区別しない
-let g:neocomplcache_enable_smart_case = 1
-" _ 区切り補完
-let g:neocomplcache_enable_underbar_completion = 1
 
-""" vimproc
-" 以下を実行
-" cd ~/.bundle/vimproc/
-" make -f make_mac.mak
+"####### unite-rails #######
+NeoBundle 'basyura/unite-rails'
+function! UniteRailsSetting()
+  nnoremap <buffer><C-H><C-H><C-H>  :<C-U>Unite rails/view<CR>
+  nnoremap <buffer><C-H><C-H>       :<C-U>Unite rails/model<CR>
+  nnoremap <buffer><C-H>            :<C-U>Unite rails/controller<CR>
+ 
+  nnoremap <buffer><C-H>c           :<C-U>Unite rails/config<CR>
+  nnoremap <buffer><C-H>s           :<C-U>Unite rails/spec<CR>
+  nnoremap <buffer><C-H>m           :<C-U>Unite rails/db -input=migrate<CR>
+  nnoremap <buffer><C-H>l           :<C-U>Unite rails/lib<CR>
+  nnoremap <buffer><expr><C-H>g     ':e '.b:rails_root.'/Gemfile<CR>'
+  nnoremap <buffer><expr><C-H>r     ':e '.b:rails_root.'/config/routes.rb<CR>'
+  nnoremap <buffer><expr><C-H>se    ':e '.b:rails_root.'/db/seeds.rb<CR>'
+  nnoremap <buffer><C-H>ra          :<C-U>Unite rails/rake<CR>
+  nnoremap <buffer><C-H>h           :<C-U>Unite rails/heroku<CR>
+endfunction
+aug MyAutoCmd
+  au User Rails call UniteRailsSetting()
+aug END
 
-""" smartchr.vim
-autocmd FileType ruby inoremap <buffer> <expr> = smartchr#one_of(' = ', ' == ', '=')
-autocmd FileType ruby inoremap <buffer> <expr> . smartchr#one_of('.', ' => ', '..', '...')
+"####### 非同期処理 #######
+NeoBundle 'Shougo/vimproc', {
+  \ 'build' : {
+    \ 'windows' : 'make -f make_mingw32.mak',
+    \ 'cygwin' : 'make -f make_cygwin.mak',
+    \ 'mac' : 'make -f make_mac.mak',
+    \ 'unix' : 'make -f make_unix.mak',
+  \ },
+\ }
 
-""" gundo.vim
-nnoremap <F5> :GundoToggle<CR>
 
-""" zencoding-vim
-let g:user_zen_settings = {
-\   'lang' : 'ja',
-\   'indentation' : ' ',
-\   'css' : {
-\     'filters' : 'fc',
-\   },
-\   'javascript' : {
-\     'snippets' : {
-\       'jq' : "$(function() {\n\t${cursor}${child}\n});",
-\       'fn' : "(function() {\n\t${cursor}\n|)();",
-\     },
-\   },
-\   'haml': {
-\     'filters': 'haml',
-\     'extends': 'html',
-\   },
-\}
-" 入力補完を有効にする
-let g:use_zen_complete_tag = 1
+"####### VimShell #######
+NeoBundle 'Shougo/vimshell', {
+  \ 'lazy': 1,
+  \ 'autoload': {
+  \   'commands': 'VimShell',
+\ }}
 
-""" vim-rails
-nnoremap <silent> ,r :<C-u>R<CR>
 
-""" nerdtree
-"" NERDTreeでgrep検索
-"" http://yp.xenophy.com/?p=78
-"" https://gist.github.com/414375
-nnoremap <silent> ,t :<C-u>NERDTreeToggle<CR>
+"####### \rでスクリプトを実行 #######
+NeoBundle 'thinca/vim-quickrun'
+"実行結果を横分割して下に表示
+let g:quickrun_config={'*': {'split': ''}}
+set splitbelow
+"RSpec及び、非同期実行に対応(なんか遅いのでコメントアウト)
+" let g:quickrun_config._ = {'runner' : 'vimproc'}
+" let g:quickrun_config['ruby.rspec'] = { 'command': 'rspec', 'cmdopt': 'bundle exec', 'exec': '%o %c %s' }
+" augroup RSpec
+"   autocmd!
+"   autocmd BufWinEnter,BufNewFile *_spec.rb set filetype=ruby.rspec
+" augroup END
 
-""" vim-fugitive
-nnoremap <Space>gd :<C-u>Gdiff<Enter>
-nnoremap <Space>gs :<C-u>Gstatus<Enter>
-nnoremap <Space>gl :<C-u>Glog<Enter>
-nnoremap <Space>ga :<C-u>Gwrite<Enter>
-nnoremap <Space>gc :<C-u>Gcommit<Enter>
-nnoremap <Space>gC :<C-u>Git commit --amend<Enter>
-nnoremap <Space>gb :<C-u>Gblame<Enter>
 
-""" vim-fakeclip
-"" yank, pasteでクリップボードを使用する
-set clipboard=unnamed
+"####### 終了タグの自動書き出し#######
+NeoBundle 'tpope/vim-endwise'
+let g:endwise_no_mappings=1
 
-""" vim-powerline
-"" ステータスラインを良い感じに
-let g:Powerline_symbols = 'fancy'
+
+"####### %で開始・終了タグを移動 #######
+NeoBundle 'vim-scripts/ruby-matchit'
+
+
+"####### !で切替 #######
+NeoBundle 'AndrewRadev/switch.vim'
+nnoremap ! :Switch<CR>
+let s:switch_definition = {
+      \ '*': [
+      \   ['is', 'are']
+      \ ],
+      \ 'ruby,eruby,haml' : [
+      \   ['if', 'unless'],
+      \   ['while', 'until'],
+      \   ['.blank?', '.present?'],
+      \   ['include', 'extend'],
+      \   ['class', 'module'],
+      \   ['.inject', '.delete_if'],
+      \   ['.map', '.map!'],
+      \   ['attr_accessor', 'attr_reader', 'attr_writer'],
+      \ ],
+      \ 'Gemfile,Berksfile' : [
+      \   ['=', '<', '<=', '>', '>=', '~>'],
+      \ ],
+      \ 'ruby.application_template' : [
+      \   ['yes?', 'no?'],
+      \   ['lib', 'initializer', 'file', 'vendor', 'rakefile'],
+      \   ['controller', 'model', 'view', 'migration', 'scaffold'],
+      \ ],
+      \ 'erb,html,php' : [
+      \   { '<!--\([a-zA-Z0-9 /]\+\)--></\(div\|ul\|li\|a\)>' : '</\2><!--\1-->' },
+      \ ],
+      \ 'rails' : [
+      \   [100, ':continue', ':information'],
+      \   [101, ':switching_protocols'],
+      \   [102, ':processing'],
+      \   [200, ':ok', ':success'],
+      \   [201, ':created'],
+      \   [202, ':accepted'],
+      \   [203, ':non_authoritative_information'],
+      \   [204, ':no_content'],
+      \   [205, ':reset_content'],
+      \   [206, ':partial_content'],
+      \   [207, ':multi_status'],
+      \   [208, ':already_reported'],
+      \   [226, ':im_used'],
+      \   [300, ':multiple_choices'],
+      \   [301, ':moved_permanently'],
+      \   [302, ':found'],
+      \   [303, ':see_other'],
+      \   [304, ':not_modified'],
+      \   [305, ':use_proxy'],
+      \   [306, ':reserved'],
+      \   [307, ':temporary_redirect'],
+      \   [308, ':permanent_redirect'],
+      \   [400, ':bad_request'],
+      \   [401, ':unauthorized'],
+      \   [402, ':payment_required'],
+      \   [403, ':forbidden'],
+      \   [404, ':not_found'],
+      \   [405, ':method_not_allowed'],
+      \   [406, ':not_acceptable'],
+      \   [407, ':proxy_authentication_required'],
+      \   [408, ':request_timeout'],
+      \   [409, ':conflict'],
+      \   [410, ':gone'],
+      \   [411, ':length_required'],
+      \   [412, ':precondition_failed'],
+      \   [413, ':request_entity_too_large'],
+      \   [414, ':request_uri_too_long'],
+      \   [415, ':unsupported_media_type'],
+      \   [416, ':requested_range_not_satisfiable'],
+      \   [417, ':expectation_failed'],
+      \   [422, ':unprocessable_entity'],
+      \   [423, ':precondition_required'],
+      \   [424, ':too_many_requests'],
+      \   [426, ':request_header_fields_too_large'],
+      \   [500, ':internal_server_error'],
+      \   [501, ':not_implemented'],
+      \   [502, ':bad_gateway'],
+      \   [503, ':service_unavailable'],
+      \   [504, ':gateway_timeout'],
+      \   [505, ':http_version_not_supported'],
+      \   [506, ':variant_also_negotiates'],
+      \   [507, ':insufficient_storage'],
+      \   [508, ':loop_detected'],
+      \   [510, ':not_extended'],
+      \   [511, ':network_authentication_required'],
+      \ ],
+      \ 'rspec': [
+      \   ['describe', 'context', 'specific', 'example'],
+      \   ['before', 'after'],
+      \   ['be_true', 'be_false'],
+      \   ['get', 'post', 'put', 'delete'],
+      \   ['==', 'eql', 'equal'],
+      \   { '\.should_not': '\.should' },
+      \   ['\.to_not', '\.to'],
+      \   { '\([^. ]\+\)\.should\(_not\|\)': 'expect(\1)\.to\2' },
+      \   { 'expect(\([^. ]\+\))\.to\(_not\|\)': '\1.should\2' },
+      \ ],
+      \ 'markdown' : [
+      \   ['[ ]', '[x]']
+      \ ]
+      \ }
+
+
+"####### 縦移動を高速に行う #######
+NeoBundle 'Lokaltog/vim-easymotion'
+" ホームポジションに近いキーを使う
+let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
+" 「;」 + 何かにマッピング
+let g:EasyMotion_leader_key=";"
+" 1 ストローク選択を優先する
+let g:EasyMotion_grouping=1
+" カラー設定変更
+hi EasyMotionTarget ctermbg=none ctermfg=red
+hi EasyMotionShade  ctermbg=none ctermfg=blue
+
+
+"####### f検索移動を複数行で行う #######
+NeoBundle 'rhysd/clever-f.vim'
+
+
+"####### s(S)で2文字入力の検索移動を行う #######
+NeoBundle 'goldfeld/vim-seek'
+
+
+"####### F3でマーク、F2でマークした行へ移動 #######
+" ~/.vim/plugin/visualmark.vim にファイルで導入
+map <unique> <F3> <Plug>Vm_toggle_sign
+map <silent> <unique> mm <Plug>Vm_toggle_sign
+
+
+"####### カラースキーム #######
+" NeoBundle 'tomasr/molokai'
+" NeoBundle 'nanotech/jellybeans.vim'
+" NeoBundle 'altercation/solarized'
+" NeoBundle 'vim-scripts/newspaper.vim'
+
+" カラースキームの切替
+" NeoBundle 'ujihisa/unite-colorscheme'
+" nnoremap <silent> ,uc :<C-u>Unite colorscheme -auto-preview<CR>
+
+
+"####### ステータスラインを格好良くする #######
+NeoBundle 'itchyny/lightline.vim'
+let g:lightline = { 'colorscheme': 'wombat',}
+
+
+"---------------------------------------------------
+"読込んだプラグイン含め、ファイルタイプの検出、
+"ファイルタイプ別プラグイン/インデントを有効化する
+"---------------------------------------------------
+filetype plugin indent on
+
