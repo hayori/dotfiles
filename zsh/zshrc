@@ -20,7 +20,6 @@ case ${OSTYPE} in
     alias vi='vim'
     ;;
 esac
-esac
 
 #bindkey -e               # キーバインドをemacsモードに設定
 bindkey -v               # キーバインドをviモードに設定
