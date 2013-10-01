@@ -35,9 +35,8 @@ highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=white
 "match ZenkakuSpace /　/
 
 "### ハイライト設定 ###
-syntax on                        "シンタックスハイライトを有効
-"set t_Co=256                     "256色ターミナルに対応
-"colorscheme Dark2                "カラースキーマでの設定
+syntax on              "シンタックスハイライトを有効
+"set t_Co=256           "256色ターミナルに対応
 highlight StatusLine ctermfg=black ctermbg=grey
 highlight CursorLine ctermfg=none ctermbg=darkgray cterm=none
 highlight MatchParen ctermfg=none ctermbg=darkgray
@@ -468,19 +467,21 @@ map <silent> <unique> mm <Plug>Vm_toggle_sign
 
 
 "####### カラースキーム #######
-" NeoBundle 'tomasr/molokai'
-" NeoBundle 'nanotech/jellybeans.vim'
-" NeoBundle 'altercation/solarized'
-" NeoBundle 'vim-scripts/newspaper.vim'
+NeoBundle 'tomasr/molokai'
+NeoBundle 'nanotech/jellybeans.vim'
+NeoBundle 'altercation/solarized'
+NeoBundle 'vim-scripts/newspaper.vim'
+NeoBundle 'w0ng/vim-hybrid'
 
 " カラースキームの切替
-" NeoBundle 'ujihisa/unite-colorscheme'
-" nnoremap <silent> ,uc :<C-u>Unite colorscheme -auto-preview<CR>
+NeoBundle 'ujihisa/unite-colorscheme'
+nnoremap <silent> ,uc :<C-u>Unite colorscheme -auto-preview<CR>
 
 
 "####### ステータスラインを格好良くする #######
 NeoBundle 'itchyny/lightline.vim'
 let g:lightline = { 'colorscheme': 'wombat',}
+colorscheme hybrid
 
 
 "---------------------------------------------------
