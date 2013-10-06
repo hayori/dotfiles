@@ -191,3 +191,11 @@ case ${OSTYPE} in
     ;;
 esac
 
+### Rails spring ###
+case ${OSTYPE} in
+  linux*)
+    # vagrantのvboxsfにsocketファイルを生成できない為
+    export SPRING_TMP_PATH=/tmp
+    ;;
+esac
+
