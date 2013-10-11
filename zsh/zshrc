@@ -182,15 +182,6 @@ linux*)
   ;;
 esac
 
-### rbenv ###
-case ${OSTYPE} in
-  darwin*)
-    export RBENV_ROOT=~/.rbenv
-    export PATH="~/.rbenv/bin:$PATH"
-    eval "$(rbenv init -)"
-    ;;
-esac
-
 ### Rails spring ###
 case ${OSTYPE} in
   linux*)
@@ -198,4 +189,12 @@ case ${OSTYPE} in
     export SPRING_TMP_PATH=/tmp
     ;;
 esac
+
+
+# ------------------------------
+# 環境依存設定ファイル読み込み
+# ------------------------------
+
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local ]
+
 
