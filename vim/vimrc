@@ -77,18 +77,18 @@ set expandtab               "タブを空白文字に展開
 set autoindent smartindent  "自動インデント，スマートインデント
 
 "### 括弧の自動補完 ###
-inoremap { {}<LEFT>
-inoremap [ []<LEFT>
-inoremap ( ()<LEFT>
-inoremap < <><LEFT>
-inoremap " ""<LEFT>
-inoremap ' ''<LEFT>
-vnoremap { "zdi{<C-R>z}<ESC>
-vnoremap [ "zdi[<C-R>z]<ESC>
-vnoremap ( "zdi(<C-R>z)<ESC>
-""vnoremap < "zdi(<C-R>z><ESC>
-vnoremap " "zdi"<C-R>z"<ESC>
-vnoremap ' "zdi'<C-R>z'<ESC>
+" inoremap { {}<LEFT>
+" inoremap [ []<LEFT>
+" inoremap ( ()<LEFT>
+" inoremap < <><LEFT>
+" inoremap " ""<LEFT>
+" inoremap ' ''<LEFT>
+" vnoremap { "zdi{<C-R>z}<ESC>
+" vnoremap [ "zdi[<C-R>z]<ESC>
+" vnoremap ( "zdi(<C-R>z)<ESC>
+" ""vnoremap < "zdi(<C-R>z><ESC>
+" vnoremap " "zdi"<C-R>z"<ESC>
+" vnoremap ' "zdi'<C-R>z'<ESC>
 
 "### 複数回のインデントを行えるようにする ###
 vnoremap <silent> > >gv
@@ -482,6 +482,10 @@ nnoremap <silent> ,uc :<C-u>Unite colorscheme -auto-preview<CR>
 NeoBundle 'itchyny/lightline.vim'
 let g:lightline = { 'colorscheme': 'wombat',}
 colorscheme hybrid
+
+
+"####### 閉じカッコを自動化 #######
+NeoBundle 'Townk/vim-autoclose'
 
 
 "---------------------------------------------------
