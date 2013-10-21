@@ -147,8 +147,14 @@ inoremap <expr><C-g> neocomplete#undo_completion()
 inoremap <expr><C-l> neocomplete#complete_common_string()
  
 "改行で補完ウィンドウを閉じる
-inoremap <expr><CR> neocomplete#smart_close_popup() . "\<CR>"
- 
+" inoremap <expr><CR> neocomplete#smart_close_popup() . "\<CR>"
+
+"改行で補完ウィンドウを閉じる (vim-endwiseと同居させるには以下)
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return pumvisible() ? neocomplete#close_popup() : "\<CR>" 
+endfunction
+
 "tabで補完候補の選択を行う
 inoremap <expr><TAB> pumvisible() ? "\<Down>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<Up>" : "\<S-TAB>"
@@ -156,8 +162,8 @@ inoremap <expr><S-TAB> pumvisible() ? "\<Up>" : "\<S-TAB>"
 "<C-h>や<BS>を押したときに確実にポップアップを削除します
 inoremap <expr><C-h> neocomplete#smart_close_popup().”\<C-h>”
  
-"現在選択している候補を確定します
-inoremap <expr><C-y> neocomplete#close_popup()
+"現在選択している候補を確定して、コマンドモードに切替
+inoremap <expr><C-y> neocomplete#close_popup()." \<ESC>"
  
 "現在選択している候補をキャンセルし、ポップアップを閉じます
 inoremap <expr><C-e> neocomplete#cancel_popup()
@@ -358,7 +364,7 @@ set splitbelow
 
 "####### 終了タグの自動書き出し#######
 NeoBundle 'tpope/vim-endwise'
-let g:endwise_no_mappings=1
+" let g:endwise_no_mappings=1
 
 
 "####### %で開始・終了タグを移動 #######
