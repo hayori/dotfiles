@@ -163,7 +163,7 @@ inoremap <expr><S-TAB> pumvisible() ? "\<Up>" : "\<S-TAB>"
 inoremap <expr><C-h> neocomplete#smart_close_popup().”\<C-h>”
  
 "現在選択している候補を確定して、コマンドモードに切替
-inoremap <expr><C-y> neocomplete#close_popup()." \<ESC>"
+inoremap <expr><C-y> neocomplete#close_popup()."\<ESC>"
  
 "現在選択している候補をキャンセルし、ポップアップを閉じます
 inoremap <expr><C-e> neocomplete#cancel_popup()
