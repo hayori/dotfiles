@@ -522,6 +522,9 @@ colorscheme hybrid
 NeoBundle 'Townk/vim-autoclose'
 
 
+"####### Codic検索 #######
+NeoBundle 'koron/codic-vim'
+
 "---------------------------------------------------
 "読込んだプラグイン含め、ファイルタイプの検出、
 "ファイルタイプ別プラグイン/インデントを有効化する
