@@ -2,7 +2,8 @@
 " 基 本 設 定
 "------------------------------
 set nocompatible  "vi互換モードをOFF
-set mouse=        "マウスを無効
+set mouse=a       "マウスを有効
+set ttymouse=xterm2
 set nohlsearch    "検索時はハイライトを無効
 set number        "行番号を表示
 set incsearch     "インクリメンタルサーチを有効
