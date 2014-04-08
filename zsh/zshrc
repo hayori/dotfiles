@@ -171,6 +171,7 @@ alias mv="mv -i"
 alias gits="git status"
 alias pd=popd
 alias screen="screen -D -RR"     # auto detach
+alias tm=tmux
 
 # ls
 case "${OSTYPE}" in
