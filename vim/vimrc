@@ -1,26 +1,27 @@
 "------------------------------
 " 基 本 設 定
 "------------------------------
-set nocompatible  "vi互換モードをOFF
-set mouse=a       "マウスを有効
-set ttymouse=xterm2
-set nohlsearch    "検索時はハイライトを無効
-set number        "行番号を表示
-set incsearch     "インクリメンタルサーチを有効
-set ignorecase    "大文字小文字を区別せず検索
-set laststatus=2  "ステータスラインを常に表示
-set shellslash    "Windowsでパス区切りにスラッシュを使用
-"set lazyredraw    "マクロ実行中は描画しない 
-set showmatch     "括弧の対応をハイライト
-set visualbell    "ビープを鳴らさない
-set showcmd       "コマンドをステータスラインに表示する
-set wrap          "画面幅で折り返す
-set notitle       "ウィンドウタイトルを変更しない(Thanks for flying Vim防止)
-set nobackup      "バックアップファイルを作成しない
-"set noswapfile    "スワップファイルを作成しない
-set autoread      "他で書き換えれたら自動で再読込み
-set hidden        "編集中ファイルを保存せずに他のファイルを開ける
-set list          "行末を可視化
+set nocompatible      "vi互換モードをOFF
+set mouse=a           "マウスを有効
+set ttymouse=xterm2   "マウスで使用する端末設定、とりあえずこれで
+set clipboard=unnamed "バッファをクリップボードにコピー
+set nohlsearch        "検索時はハイライトを無効
+set number            "行番号を表示
+set incsearch         "インクリメンタルサーチを有効
+set ignorecase        "大文字小文字を区別せず検索
+set laststatus=2      "ステータスラインを常に表示
+set shellslash        "Windowsでパス区切りにスラッシュを使用
+"set lazyredraw        "マクロ実行中は描画しない 
+set showmatch         "括弧の対応をハイライト
+set visualbell        "ビープを鳴らさない
+set showcmd           "コマンドをステータスラインに表示する
+set wrap              "画面幅で折り返す
+set notitle           "ウィンドウタイトルを変更しない(Thanks for flying Vim防止)
+set nobackup          "バックアップファイルを作成しない
+"set noswapfile        "スワップファイルを作成しない
+set autoread          "他で書き換えれたら自動で再読込み
+set hidden            "編集中ファイルを保存せずに他のファイルを開ける
+set list              "行末を可視化
 
 set listchars=eol:$,tab:>.   "非表示文字を表示
 set undolevels=1000          "UNDOできる上限"
