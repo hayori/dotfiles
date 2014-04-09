@@ -28,9 +28,9 @@ set undolevels=1000          "UNDOできる上限"
 set pastetoggle=<F12>        "ペーストモード切替(set pasteのままだとプラグイン等動作しない)"
 "set scrolloff=999           "常にカーソル行を真ん中にする
 
-set wildmenu wildmode=list:longest  "コマンドラインモードでの補完表示形式
-set backspace=start,eol,indent      "バックスペースキーでの文字削除を許可
-"set whichwrap=b,s,[,],<,>,~        "カーソルキー移動をスクリーンエディタに合わせる
+set wildmenu wildmode=longest:full,full  "コマンドラインモードでの補完表示形式
+set backspace=start,eol,indent           "バックスペースキーでの文字削除を許可
+"set whichwrap=b,s,[,],<,>,~             "カーソルキー移動をスクリーンエディタに合わせる
 
 "### 全角スペースを可視化###
 highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=white
