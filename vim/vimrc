@@ -5,7 +5,7 @@ set nocompatible      "vi互換モードをOFF
 set mouse=a           "マウスを有効
 set ttymouse=xterm2   "マウスで使用する端末設定、とりあえずこれで
 " set clipboard=unnamed "バッファをクリップボードにコピー
-set nohlsearch        "検索時はハイライトを無効
+" set nohlsearch        "検索時はハイライトを無効
 set number            "行番号を表示
 set incsearch         "インクリメンタルサーチを有効
 set ignorecase        "大文字小文字を区別せず検索
