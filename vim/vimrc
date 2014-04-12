@@ -545,6 +545,14 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'gregsexton/gitv'
 
 
+"####### ファイラー ######
+" 参考: http://d.hatena.ne.jp/h1mesuke/20100611/p1
+NeoBundle 'Shougo/vimfiler'
+
+" 編集時タブで開く
+let g:vimfiler_edit_action = 'tabopen'
+
+
 "---------------------------------------------------
 "カラースキーマ
 "---------------------------------------------------
