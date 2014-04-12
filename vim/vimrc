@@ -517,8 +517,15 @@ nnoremap <silent> ,uc :<C-u>Unite colorscheme -auto-preview<CR>
 
 "####### ステータスラインを格好良くする #######
 NeoBundle 'itchyny/lightline.vim'
-let g:lightline = { 'colorscheme': 'wombat',}
-colorscheme hybrid
+let g:lightline = {
+  \ 'colorscheme': 'wombat',
+  \   'active': {
+  \     'left': [ ['mode', 'paste'], ['readonly', 'filename', 'git', 'modified'] ],
+  \   },
+  \   'component_function': {
+  \     'git': 'fugitive#statusline'
+  \   }
+  \ }
 
 
 "####### 閉じカッコを自動化 #######
@@ -536,6 +543,11 @@ NeoBundle 'tpope/vim-fugitive'
 "####### Git履歴閲覧 #######
 NeoBundle 'gregsexton/gitv'
 
+
+"---------------------------------------------------
+"カラースキーマ
+"---------------------------------------------------
+colorscheme hybrid
 
 "---------------------------------------------------
 "読込んだプラグイン含め、ファイルタイプの検出、
