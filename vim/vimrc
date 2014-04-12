@@ -224,7 +224,8 @@ au FileType php vmap <buffer><C-_>c :TCommentAs php_surround<CR>
 
 
 "####### Snippet #######
-NeoBundle 'Shougo/neosnippet.vim'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
 " <TAB>: completion.
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
