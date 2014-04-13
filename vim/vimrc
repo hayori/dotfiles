@@ -20,7 +20,7 @@ set notitle           "ウィンドウタイトルを変更しない(Thanks for 
 set nobackup          "バックアップファイルを作成しない
 set noswapfile        "スワップファイルを作成しない
 set autoread          "他で書き換えれたら自動で再読込み
-set hidden            "編集中ファイルを保存せずに他のファイルを開ける
+" set hidden            "編集中ファイルを保存せずに他のファイルを開ける
 set list              "行末を可視化
 
 set listchars=eol:$,tab:>.   "非表示文字を表示
