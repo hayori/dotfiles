@@ -100,6 +100,10 @@ vnoremap <silent> < <gv
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
 
+"### gpでヤンクレジスタをペースト ###
+nnoremap gp "0P
+
+
 "------------------------------
 " Neobundle
 "------------------------------
