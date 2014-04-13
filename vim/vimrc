@@ -96,6 +96,10 @@ set autoindent smartindent  "自動インデント，スマートインデント
 vnoremap <silent> > >gv
 vnoremap <silent> < <gv
 
+"### 入力モード中にCtrl+ で移動 ###
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
+
 "------------------------------
 " Neobundle
 "------------------------------
@@ -140,17 +144,14 @@ let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 let g:neocomplete#max_list = 15
 
 "1番目の候補を自動選択
-" let g:neocomplete#enable_auto_select = 1
+let g:neocomplete#enable_auto_select = 1
 
 "前回行われた補完をキャンセルします
-inoremap <expr><C-g> neocomplete#undo_completion()
+" inoremap <expr><C-g> neocomplete#undo_completion()
  
 "補完候補のなかから、共通する部分を補完します
-inoremap <expr><C-l> neocomplete#complete_common_string()
+" inoremap <expr><C-l> neocomplete#complete_common_string()
  
-"改行で補完ウィンドウを閉じる
-" inoremap <expr><CR> neocomplete#smart_close_popup() . "\<CR>"
-
 "改行で補完ウィンドウを閉じる (vim-endwiseと同居させるには以下)
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
@@ -162,7 +163,7 @@ inoremap <expr><TAB> pumvisible() ? "\<Down>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<Up>" : "\<S-TAB>"
  
 "<C-h>や<BS>を押したときに確実にポップアップを削除します
-inoremap <expr><C-h> neocomplete#smart_close_popup().”\<C-h>”
+" inoremap <expr><C-h> neocomplete#smart_close_popup().”\<C-h>”
  
 "現在選択している候補を確定して、コマンドモードに切替
 inoremap <expr><C-y> neocomplete#close_popup()."\<ESC>"
