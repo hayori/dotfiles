@@ -148,7 +148,7 @@ let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 let g:neocomplete#max_list = 15
 
 "1番目の候補を自動選択
-let g:neocomplete#enable_auto_select = 1
+" let g:neocomplete#enable_auto_select = 1
 
 "前回行われた補完をキャンセルします
 " inoremap <expr><C-g> neocomplete#undo_completion()
