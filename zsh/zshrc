@@ -87,10 +87,37 @@ function history-all { history -E 1 }
 ### Prompt ###
 autoload colors; colors
 
+function rprompt-git-current-branch {
+  local name st color
+
+  if [[ "$PWD" =~ '/\.git(/.*)?$' ]]; then
+    return
+  fi
+  name=$(basename "`git symbolic-ref HEAD 2> /dev/null`")
+  if [[ -z $name ]]; then
+    return
+  fi
+  st=`git status 2> /dev/null`
+  if [[ -n `echo "$st" | grep "^nothing to"` ]]; then
+    color=${fg[green]}
+  elif [[ -n `echo "$st" | grep "^nothing added"` ]]; then
+    color=${fg[yellow]}
+  elif [[ -n `echo "$st" | grep "^# Untracked"` ]]; then
+    color=${fg_bold[red]}
+  else
+    color=${fg[red]}
+  fi
+
+  # %{...%} は囲まれた文字列がエスケープシーケンスであることを明示する
+  # これをしないと右プロンプトの位置がずれる
+  echo "%{$color%}$name%{$reset_color%} "
+}
+
 # 一般ユーザ時
 tmp_prompt="%{${fg[cyan]}%}%# %{${reset_color}%}"
 tmp_prompt2="%{${fg[cyan]}%}%_> %{${reset_color}%}"
-tmp_rprompt="%{${fg[green]}%}[%~]%{${reset_color}%}"
+tmp_rprompt='[`rprompt-git-current-branch`%~]'
+# tmp_rprompt='[`rprompt-git-current-branch`%32<...<%~]'   # 文字数省略版
 tmp_sprompt="%{${fg[yellow]}%}%r is correct? [Yes, No, Abort, Edit]:%{${reset_color}%}"
 
 # rootユーザ時(太字にし、アンダーバーをつける)
@@ -123,6 +150,56 @@ kterm*|xterm*)
     'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
   ;;
 esac
+
+
+# ## PROMPT
+# PROMPT=$'[%*] → '
+# ## RPROMPT
+# RPROMPT=$'`branch-status-check` %~' # %~はpwd
+# setopt prompt_subst #表示毎にPROMPTで設定されている文字列を評価する
+#  
+# # {{{ methods for RPROMPT
+# # fg[color]表記と$reset_colorを使いたい
+# # @see https://wiki.archlinux.org/index.php/zsh
+# autoload -U colors; colors
+# function branch-status-check {
+#     local prefix branchname suffix
+#         # .gitの中だから除外
+#         if [[ "$PWD" =~ '/\.git(/.*)?$' ]]; then
+#             return
+#         fi
+#         branchname=`get-branch-name`
+#         # ブランチ名が無いので除外
+#         if [[ -z $branchname ]]; then
+#             return
+#         fi
+#         prefix=`get-branch-status` #色だけ返ってくる
+#         suffix='%{'${reset_color}'%}'
+#         echo ${prefix}${branchname}${suffix}
+# }
+# function get-branch-name {
+#     # gitディレクトリじゃない場合のエラーは捨てます
+#     echo `git rev-parse --abbrev-ref HEAD 2> /dev/null`
+# }
+# function get-branch-status {
+#     local res color
+#         output=`git status --short 2> /dev/null`
+#         if [ -z "$output" ]; then
+#             res=':' # status Clean
+#             color='%{'${fg[green]}'%}'
+#         elif [[ $output =~ "[\n]?\?\? " ]]; then
+#             res='?:' # Untracked
+#             color='%{'${fg[yellow]}'%}'
+#         elif [[ $output =~ "[\n]? M " ]]; then
+#             res='M:' # Modified
+#             color='%{'${fg[red]}'%}'
+#         else
+#             res='A:' # Added to commit
+#             color='%{'${fg[cyan]}'%}'
+#         fi
+#         # echo ${color}${res}'%{'${reset_color}'%}'
+#         echo ${color} # 色だけ返す
+# }
 
 ## terminal configuration
 unset LSCOLORS
