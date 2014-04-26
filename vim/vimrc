@@ -80,6 +80,7 @@ nmap <ESC><ESC> :nohlsearch<CR><ESC>
 " softtabstopはTabキー押し下げ時の挿入される空白の量，0の場合はtabstopと同じ，BSにも影響する
 au BufNewFile,BufRead * set tabstop=2 shiftwidth=2 softtabstop=0
 au BufNewFile,BufRead *.php set tabstop=4 shiftwidth=4 softtabstop=0
+autocmd filetype coffee,javascript setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
 set expandtab               "タブを空白文字に展開
 set autoindent smartindent  "自動インデント，スマートインデント
 
@@ -640,6 +641,22 @@ NeoBundle 'Shougo/vimfiler'
 
 " 編集時タブで開く
 let g:vimfiler_edit_action = 'tabopen'
+
+
+"####### css3シンタックス ######
+NeoBundle 'hail2u/vim-css3-syntax'
+
+
+"####### html5シンタックス ######
+NeoBundle 'taichouchou2/html5.vim'
+
+
+"####### javascriptシンタックスとインデント ######
+NeoBundle 'pangloss/vim-javascript'
+
+
+"####### coffee-script ######
+NeoBundle 'kchmck/vim-coffee-script'
 
 
 "---------------------------------------------------
