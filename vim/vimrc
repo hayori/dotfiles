@@ -103,6 +103,8 @@ vnoremap <silent> > >gv
 vnoremap <silent> < <gv
 
 "### 入力モード中にCtrl+ で移動 ###
+inoremap <C-k> <Up>
+inoremap <C-j> <Down>
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
 
@@ -241,8 +243,8 @@ NeoBundle 'Shougo/neosnippet-snippets'
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
 " Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+imap ,,     <Plug>(neosnippet_expand_or_jump)
+smap ,,     <Plug>(neosnippet_expand_or_jump)
 
 " SuperTab like snippets behavior.
 imap <expr><TAB> pumvisible() ? "\<C-n>" : neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
