@@ -112,6 +112,11 @@ inoremap <C-l> <Right>
 "### gpでヤンクレジスタをペースト ###
 nnoremap gp "0P
 
+"### 折りたたみ ###
+set foldmethod=manual
+autocmd FileType ruby :set foldmethod=indent
+autocmd FileType ruby :set foldlevel=1
+autocmd FileType ruby :set foldnestmax=2
 
 "------------------------------
 " Neobundle
