@@ -34,6 +34,8 @@ set undolevels=1000          "UNDOできる上限"
 set pastetoggle=<F12>        "ペーストモード切替(set pasteのままだとプラグイン等動作しない)"
 "set scrolloff=999           "常にカーソル行を真ん中にする
 
+set undodir=D:~/.vimundo
+
 set wildmenu wildmode=longest:full,full  "コマンドラインモードでの補完表示形式
 set backspace=start,eol,indent           "バックスペースキーでの文字削除を許可
 "set whichwrap=b,s,[,],<,>,~             "カーソルキー移動をスクリーンエディタに合わせる
@@ -689,7 +691,7 @@ NeoBundle 'hail2u/vim-css3-syntax'
 
 
 "####### html5シンタックス ######
-NeoBundle 'taichouchou2/html5.vim'
+NeoBundle 'othree/html5.vim'
 
 
 "####### javascriptシンタックスとインデント ######
@@ -715,6 +717,10 @@ NeoBundle 'h1mesuke/vim-alignta'
 " let g:syntastic_mode_map = { 'mode': 'passive',
 "                            \ 'active_filetypes': ['ruby'] }
 " let g:syntastic_ruby_checkers = ['rubocop']
+
+
+"####### json表示 ######
+NeoBundle 'elzr/vim-json'
 
 
 "---------------------------------------------------
