@@ -22,7 +22,7 @@ set showmatch         "括弧の対応をハイライト
 set visualbell        "ビープを鳴らさない
 set showcmd           "コマンドをステータスラインに表示する
 set wrap              "画面幅で折り返す
-set notitle           "ウィンドウタイトルを変更しない(Thanks for flying Vim防止)
+" set notitle           "ウィンドウタイトルを変更しない(Thanks for flying Vim防止)
 set nobackup          "バックアップファイルを作成しない
 set noswapfile        "スワップファイルを作成しない
 set autoread          "他で書き換えれたら自動で再読込み
@@ -722,6 +722,9 @@ NeoBundle 'h1mesuke/vim-alignta'
 "####### json表示 ######
 NeoBundle 'elzr/vim-json'
 
+
+"####### substituteのプレビュー ######
+NeoBundle 'osyo-manga/vim-over'
 
 "---------------------------------------------------
 "カラースキーマ

@@ -1,12 +1,8 @@
 set columns=120
 set lines=47
 set cmdheight=2
-" colorscheme DarkZ
-colorscheme Dark2
-set guioptions-=T
-
-" フォントをRictyに設定
-set guifont=Ricty:h12:cSHIFTJIS
+colorscheme hybrid
+set guifont=Ricty:h14
 
 if g:colors_name ==? 'wombat'
   hi Visual gui=none guifg=khaki guibg=olivedrab
