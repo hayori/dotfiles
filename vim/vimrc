@@ -359,6 +359,11 @@ au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
 
 
+"####### neomru #######
+" Unite拡張
+NeoBundle 'Shougo/neomru.vim'
+
+
 "####### unite-rails #######
 NeoBundle 'basyura/unite-rails'
 function! UniteRailsSetting()
