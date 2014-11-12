@@ -129,11 +129,11 @@ autocmd FileType ruby :set foldnestmax=2
 
 "vim起動時のみruntimepathにneobundle.vimを追加
 if has('vim_starting')
-  set runtimepath+=~/.vim/neobundle.vim
+  set runtimepath+=~/.bundle/neobundle.vim
+  call neobundle#begin(expand('~/.bundle/'))
+  NeoBundleFetch 'Shougo/neobundle.vim'
+  call neobundle#end()
 endif
-
-"neobundle.vimの初期化
-call neobundle#rc(expand('~/.bundle'))
 
 "neobundle.vimを更新する
 NeoBundleFetch 'Shougo/neobundle.vim'
