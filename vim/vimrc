@@ -743,6 +743,11 @@ NeoBundle 'elzr/vim-json'
 "####### substituteのプレビュー ######
 NeoBundle 'osyo-manga/vim-over'
 
+
+"####### vim終了時にterminalタイトルを復帰させる ######
+execute ":set titleold:".fnameescape($TITLE)
+execute ":set titlestring:".fnameescape($TITLE." - %t")
+
 "---------------------------------------------------
 "カラースキーマ
 "---------------------------------------------------

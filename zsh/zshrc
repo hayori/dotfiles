@@ -270,6 +270,11 @@ esac
 ### iTerm2のタブ名を変更する ###
 function title {
   echo -ne "\033]0;"$*"\007"
+  export TITLE="${(pj: :)@}"
+}
+
+chpwd() {
+  title $(basename "$(pwd)")
 }
 
 ### color-diff ###
