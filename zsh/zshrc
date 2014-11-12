@@ -39,7 +39,6 @@ setopt equals            # =commandを`which command`と同じ処理にする
 #setopt rm_star_wait      # rm_star_silent の逆で、10 秒間反応しなくなり、頭を冷ます時間が与えられる
 
 ### Complement ###
-autoload -U compinit; compinit # 補完機能を有効にする
 setopt nolistbeep              # 補完候補表示時などにビープ音を鳴らさない
 setopt print_eight_bit         # 日本語補完時の文字化け防止
 setopt auto_list               # 補完候補が複数ある時に、一覧表示する
@@ -273,10 +272,18 @@ function title {
   echo -ne "\033]0;"$*"\007"
 }
 
+### zsh-completions ###
+fpath=(/usr/local/share/zsh-completions $fpath)
+
 # ------------------------------
 # 環境依存設定ファイル読み込み
 # ------------------------------
 
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local ]
 
+
+# ------------------------------
+# 補完機能を有効にする
+# ------------------------------
+autoload -U compinit; compinit -u
 
