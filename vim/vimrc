@@ -47,11 +47,12 @@ highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=white
 "### ハイライト設定 ###
 syntax on              "シンタックスハイライトを有効
 "set t_Co=256           "256色ターミナルに対応
-highlight StatusLine ctermfg=black ctermbg=grey
-highlight CursorLine ctermfg=none ctermbg=darkgray cterm=none
-highlight MatchParen ctermfg=none ctermbg=darkgray
-highlight Comment ctermfg=darkgreen ctermbg=none
-highlight Directory ctermfg=darkgreen ctermbg=none
+highlight Normal ctermbg=none
+" highlight StatusLine ctermfg=black ctermbg=grey
+" highlight CursorLine ctermfg=none ctermbg=darkgray cterm=none
+" highlight MatchParen ctermfg=none ctermbg=darkgray
+" highlight Comment ctermfg=darkgreen ctermbg=none
+" highlight Directory ctermfg=darkgreen ctermbg=none
 
 "### ステータスライン表示設定 ###
 " set statusline=%F%r%h%=
@@ -575,6 +576,7 @@ NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'altercation/solarized'
 NeoBundle 'vim-scripts/newspaper.vim'
 NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'sjl/badwolf'
 
 " カラースキームの切替
 NeoBundle 'ujihisa/unite-colorscheme'
@@ -751,7 +753,7 @@ execute ":set titlestring:".fnameescape($TITLE." - %t")
 "---------------------------------------------------
 "カラースキーマ
 "---------------------------------------------------
-colorscheme hybrid
+colorscheme badwolf
 
 "---------------------------------------------------
 "読込んだプラグイン含め、ファイルタイプの検出、
