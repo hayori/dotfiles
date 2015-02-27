@@ -156,7 +156,7 @@ esac
 # ## RPROMPT
 # RPROMPT=$'`branch-status-check` %~' # %~はpwd
 # setopt prompt_subst #表示毎にPROMPTで設定されている文字列を評価する
-#  
+#
 # # {{{ methods for RPROMPT
 # # fg[color]表記と$reset_colorを使いたい
 # # @see https://wiki.archlinux.org/index.php/zsh
@@ -287,6 +287,10 @@ fi
 ### zsh-completions ###
 fpath=(/usr/local/share/zsh-completions $fpath)
 
+### autojump ###
+# brewで導入  brew install autojump
+[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
+
 # ------------------------------
 # 環境依存設定ファイル読み込み
 # ------------------------------
@@ -298,4 +302,3 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 # 補完機能を有効にする
 # ------------------------------
 autoload -U compinit; compinit -u
-
